@@ -1,0 +1,79 @@
+---
+// 修复导入路径问题
+import BaseLayout from '../layouts/BaseLayout.astro'
+import siteConfig from '../site-config'
+---
+
+<BaseLayout description={siteConfig.description}>
+  <article class="prose">
+    <h1 class="text-title">RefactX 项目</h1>
+    <p>RefactX 项目，支持 Vue 和 UnoCSS。</p>
+    <p>
+      一个极简、SEO友好的 Astro 作品集和博客主题。原始版本来源于 <a
+        target="_blank"
+        href="https://github.com/kieranwv/astro-theme-vitesse">kieranwv</a
+      >。
+    </p>
+    <p>
+      <img width="640" height="360" src="/hero.jpg" alt="主题展示图" />
+    </p>
+    <p>
+      基于第一性原理思考，从图片中您也可以看出，这个项目的目标是
+      <b>将复杂的事物尽可能简单化</b>。因此，本项目的核心是内容，其他元素都只是辅助。
+    </p>
+    <p>以下特性您无需担心：</p>
+    <ul>
+      <li>Lighthouse 性能评分 100/100</li>
+      <li>响应式设计</li>
+      <li>SEO优化</li>
+      <li>亮色/暗色主题</li>
+      <li>Markdown支持</li>
+      <li>
+        <a target="_blank" href="https://mdxjs.com/">MDX</a>
+        (在Markdown中使用组件) 支持
+      </li>
+      <li>
+        <a target="_blank" href="https://vuejs.org/">Vue</a>
+        单文件组件支持
+      </li>
+      <li>自动生成站点地图和RSS订阅</li>
+      <li>
+        <a target="_blank" href="https://vueuse.org/">VueUse</a>
+        和
+        <a target="_blank" href="https://lodash.com/">Lodash</a>
+        支持
+      </li>
+    </ul>
+    <p>
+      另外，本主题使用 <a target="_blank" href="https://unocss.dev/">UnoCSS</a> 进行样式处理，速度极快。
+    </p>
+    <p>
+      访问
+      <a target="_blank" href="https://github.com/msrefs/RefactX"> GitHub </a>
+      可以fork仓库、阅读文档或一键部署到Netlify。
+    </p>
+    <p>
+      如果您喜欢 RefactX 项目，请到
+      <a target="_blank" href="https://github.com/msrefs"> GitHub仓库 </a>
+      关注它。
+    </p>
+    <hr class="hr-line" />
+    <p>在这里找到我</p>
+    <p class="flex gap-x-4 gap-y-2 flex-wrap">
+      {
+        siteConfig.socialLinks.map((link) => (
+          <a aria-label={link.text} href={link.href} target="_blank" class="prose-link">
+            <i class:list={[link.icon]} />
+            {link.text}
+          </a>
+        ))
+      }
+    </p>
+    <p>
+      如有任何问题，请通过电子邮件联系我：
+      <a prose-link aria-label={siteConfig.email} href={`mailto:${siteConfig.email}`}>
+        {siteConfig.email}
+      </a>。
+    </p>
+  </article>
+</BaseLayout>
