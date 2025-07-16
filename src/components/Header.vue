@@ -34,10 +34,13 @@ function toggleNavDrawer() {
 
 <template>
   <header
-    id="header" :class="{ 'header-bg-blur': scroll > 20 }"
-    class="!fixed bg-transparent z-50 w-screen h-20 px-6 flex justify-between items-center relative transition-all duration-300"
+    id="header"
+    :class="{
+      'header-bg-blur': scroll > 20, // 明确设置基础色
+    }"
+    class="!fixed z-50 w-screen h-20 px-6 flex justify-between items-center relative transition-all duration-300 bg-white/80 dark:bg-dark-800/80"
   >
-    <!-- 原有header内容保持不变 -->
+    <!-- 导航左侧 -->
     <div class="flex items-center h-full">
       <a href="/" mr-6 aria-label="Header Logo Image">
         <svg
@@ -53,14 +56,20 @@ function toggleNavDrawer() {
           <path d="M818 363.43 590.25 591.93 361 591.93 588.75 363.43 818 363.43z" />
         </svg>
       </a>
+
+      <!-- 桌面导航 -->
       <nav class="sm:flex hidden flex-wrap gap-x-6 position-initial flex-row">
         <a
-          v-for="link in navLinks" :key="link.text" :aria-label="`${link.text}`" :target="getLinkTarget(link.href)"
+          v-for="link in navLinks" :key="link.text"
+          :aria-label="`${link.text}`"
+          :target="getLinkTarget(link.href)"
           nav-link :href="link.href"
         >
           {{ link.text }}
         </a>
       </nav>
+
+      <!-- 移动端菜单按钮 -->
       <button
         sm:hidden h-full flex items-center
         aria-label="Toggle navigation menu"
@@ -70,17 +79,23 @@ function toggleNavDrawer() {
         <menu i-ri-menu-2-fill class="text-2xl" />
       </button>
     </div>
+
+    <!-- 导航右侧 -->
     <div class="flex gap-x-6">
       <a
-        v-for="link in socialLinks" :key="link.text" :aria-label="`${link.text}`" :class="link.icon" nav-link
-        :target="getLinkTarget(link.href)" :href="link.href"
+        v-for="link in socialLinks" :key="link.text"
+        :aria-label="`${link.text}`"
+        :class="link.icon"
+        nav-link
+        :target="getLinkTarget(link.href)"
+        :href="link.href"
       />
       <a nav-link target="_blank" href="/rss.xml" i-ri-rss-line aria-label="RSS" />
       <ThemeToggle />
     </div>
   </header>
 
-  <!-- 优化后的抽屉菜单 -->
+  <!-- 移动端菜单遮罩 -->
   <transition name="fade">
     <div
       v-if="isDrawerOpen"
@@ -89,6 +104,7 @@ function toggleNavDrawer() {
     />
   </transition>
 
+  <!-- 移动端抽屉菜单 -->
   <transition name="slide">
     <aside
       v-if="isDrawerOpen"
@@ -156,8 +172,19 @@ function toggleNavDrawer() {
   transition: transform 0.4s ease;
 }
 
+/* 替换原有的.header-bg-blur */
 .header-bg-blur {
-  --at-apply: backdrop-blur-sm bg-white/80 dark: bg-dark-800/80;
+  --at-apply: backdrop-blur-sm;
+  /* 移除原有的背景色定义 */
+}
+
+/* 确保基础色设置 */
+header {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.dark header {
+  background-color: rgba(30, 30, 32, 0.8); /* 调整为你需要的深色值 */
 }
 
 /* 遮罩动画 */

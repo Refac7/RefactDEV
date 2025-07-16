@@ -227,7 +227,6 @@ public class DoNSSI
 总之，我自己的理由千奇百怪，我自己都无法琢磨透自己的心理。
 
 ## 参考
-- [非自杀性自我伤害 (NSSI) 是成瘾行为么？](链接)
-- [自我傷害的誘惑與探討](链接)
-- [Seeking an Alternative to Self-Harm? These 7 Strategies Can Help](链接)
-- [割手割到要縫，但是案主卻興奮了三天？](链接)
+- [非自杀性自我伤害 (NSSI) 是成瘾行为么？](https://www.psychspace.com/psych/viewnews-16016)
+- [自我傷害的誘惑與探討](https://spiketren.gitbooks.io/psy101/content/ch14/hot/nssi.html)
+- [割手割到要縫，但是案主卻興奮了三天？](https://www.facebook.com/sn094545/posts/1218338905037196/)
