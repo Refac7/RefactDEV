@@ -3,6 +3,7 @@ defineProps<{
   list: {
     text: string
     description?: string
+    required: false
     icon?: string
     href: string
   }[]

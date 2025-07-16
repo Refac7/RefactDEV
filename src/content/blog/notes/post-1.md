@@ -3,10 +3,6 @@ title: Hello World!
 description: This is a sample blog post demonstrating proper Markdown formatting with front matter metadata. It includes various elements like headings, lists, code blocks, and links.
 duration: 5min
 date: 2025-07-17
-tags:
-  - example
-  - markdown
-  - tutorial
 ---
 
 ## Section 1: Basic Markdown Elements

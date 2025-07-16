@@ -1,8 +1,11 @@
 ---
 title: 如何科学地划手手
 description: 这篇文章讲述了作者对非自杀性自伤行为的喜好和过程，以及一些科学的NSSI方法。作者喜欢规划好划伤的路径，享受疼痛的感觉，并强调了消毒和准备工作的重要性。作者建议献血是一种满足自伤行为的有意义的活动，并提到了一些转移注意力的方法。
+duration: 5min
 date: 2023-08-22
 ---
+
+![封面图](https://ipfs.crossbell.io/ipfs/bafkreieek5jomgkk7mv6g2uwghousybw6rkbm23sj2e3nebinw3c3lfcm4?img-quality=75&img-format=auto&img-onerror=redirect&img-width=640)
 
 ## 写在前面的提示
 这篇内容并非专业医学、神经学、心理学的内容，任何关于身心健康的问题请咨询专业的医生或心理諮商。

@@ -24,7 +24,6 @@ const socialLinks = computed(() => {
 })
 
 const { y: scroll } = useWindowScroll()
-const oldScroll = ref(scroll.value)
 
 function toggleNavDrawer() {
   isDrawerOpen.value = !isDrawerOpen.value
@@ -38,7 +37,7 @@ function toggleNavDrawer() {
     id="header" :class="{ 'header-bg-blur': scroll > 20 }"
     class="!fixed bg-transparent z-50 w-screen h-20 px-6 flex justify-between items-center relative transition-all duration-300"
   >
-    <!-- 原有header内容保持不变 -->
+    <!-- 导航左侧 -->
     <div class="flex items-center h-full">
       <a href="/" mr-6 aria-label="Header Logo Image">
         <svg
@@ -54,14 +53,20 @@ function toggleNavDrawer() {
           <path d="M818 363.43 590.25 591.93 361 591.93 588.75 363.43 818 363.43z" />
         </svg>
       </a>
+
+      <!-- 桌面导航 -->
       <nav class="sm:flex hidden flex-wrap gap-x-6 position-initial flex-row">
         <a
-          v-for="link in navLinks" :key="link.text" :aria-label="`${link.text}`" :target="getLinkTarget(link.href)"
+          v-for="link in navLinks" :key="link.text"
+          :aria-label="`${link.text}`"
+          :target="getLinkTarget(link.href)"
           nav-link :href="link.href"
         >
           {{ link.text }}
         </a>
       </nav>
+
+      <!-- 移动端菜单按钮 -->
       <button
         sm:hidden h-full flex items-center
         aria-label="Toggle navigation menu"
@@ -71,17 +76,23 @@ function toggleNavDrawer() {
         <menu i-ri-menu-2-fill class="text-2xl" />
       </button>
     </div>
+
+    <!-- 导航右侧 -->
     <div class="flex gap-x-6">
       <a
-        v-for="link in socialLinks" :key="link.text" :aria-label="`${link.text}`" :class="link.icon" nav-link
-        :target="getLinkTarget(link.href)" :href="link.href"
+        v-for="link in socialLinks" :key="link.text"
+        :aria-label="`${link.text}`"
+        :class="link.icon"
+        nav-link
+        :target="getLinkTarget(link.href)"
+        :href="link.href"
       />
       <a nav-link target="_blank" href="/rss.xml" i-ri-rss-line aria-label="RSS" />
       <ThemeToggle />
     </div>
   </header>
 
-  <!-- 优化后的抽屉菜单 -->
+  <!-- 移动端菜单遮罩 -->
   <transition name="fade">
     <div
       v-if="isDrawerOpen"
@@ -90,6 +101,7 @@ function toggleNavDrawer() {
     />
   </transition>
 
+  <!-- 移动端抽屉菜单 -->
   <transition name="slide">
     <aside
       v-if="isDrawerOpen"
@@ -206,7 +218,7 @@ function toggleNavDrawer() {
 
 /* 暗黑模式优化 */
 .dark .nav-drawer {
-  --at-apply: shadow-xl shadow-gray-400/30;
+  --at-apply: shadow-xl shadow-gray-900/30;
 }
 
 @media (prefers-color-scheme: dark) {
