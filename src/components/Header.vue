@@ -36,7 +36,7 @@ function toggleNavDrawer() {
   <header
     id="header"
     :class="{ 'header-bg-blur': scroll > 20 }"
-    class="!fixed bg-transparent z-899 w-screen h-20 px-6 flex justify-between items-center relative transition-all duration-300"
+    class="!fixed bg-transparent z-50 w-screen h-20 px-6 flex justify-between items-center relative transition-all duration-300"
   >
     <!-- 导航左侧 -->
     <div class="flex items-center h-full">
@@ -97,7 +97,7 @@ function toggleNavDrawer() {
   <transition name="fade">
     <div
       v-if="isDrawerOpen"
-      class="nav-drawer-mask fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+      class="nav-drawer-mask fixed inset-0 z-60 bg-black/50 backdrop-blur-sm"
       @click="toggleNavDrawer"
     />
   </transition>
@@ -106,7 +106,7 @@ function toggleNavDrawer() {
   <transition name="slide">
     <aside
       v-if="isDrawerOpen"
-      class="nav-drawer sm:hidden fixed h-[calc(100vh-env(safe-area-inset-bottom))] z-50 left-0 top-0 w-72 bg-main shadow-xl pb-[env(safe-area-inset-bottom)]"
+      class="nav-drawer sm:hidden fixed h-[calc(100vh-env(safe-area-inset-bottom))] z-70 left-0 top-0 w-72 bg-main shadow-xl pb-[env(safe-area-inset-bottom)]"
     >
       <div class="p-6 flex flex-col h-full">
         <div class="flex justify-between items-center mb-8">
