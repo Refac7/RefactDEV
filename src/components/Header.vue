@@ -35,10 +35,8 @@ function toggleNavDrawer() {
 <template>
   <header
     id="header"
-    :class="{
-      'header-bg-blur': scroll > 20, // 明确设置基础色
-    }"
-    class="!fixed z-50 w-screen h-20 px-6 flex justify-between items-center relative transition-all duration-300 bg-white/80 dark:bg-dark-800/80"
+    :class="{ 'header-bg-blur': scroll > 20 }"
+    class="!fixed bg-transparent z-899 w-screen h-20 px-6 flex justify-between items-center relative transition-all duration-300"
   >
     <!-- 导航左侧 -->
     <div class="flex items-center h-full">
@@ -172,19 +170,20 @@ function toggleNavDrawer() {
   transition: transform 0.4s ease;
 }
 
-/* 替换原有的.header-bg-blur */
-.header-bg-blur {
-  --at-apply: backdrop-blur-sm;
-  /* 移除原有的背景色定义 */
-}
-
-/* 确保基础色设置 */
 header {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: transparent;
+  transition: background-color 0.3s ease;
 }
 
-.dark header {
-  background-color: rgba(30, 30, 32, 0.8); /* 调整为你需要的深色值 */
+/* 滚动后的模糊效果 */
+.header-bg-blur {
+  background-color: rgba(255, 255, 255, 0.8); /* 浅色模式半透明 */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.dark .header-bg-blur {
+  background-color: rgba(30, 30, 32, 0.8); /* 深色模式半透明 */
 }
 
 /* 遮罩动画 */
