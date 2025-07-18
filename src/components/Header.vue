@@ -1,53 +1,77 @@
-<script lang="ts" setup>
+<script>
 import siteConfig from '@/site-config'
 import { getLinkTarget } from '@/utils/link'
 import { useWindowScroll } from '@vueuse/core'
-import { computed, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import ThemeToggle from './ThemeToggle.vue'
 
-const navLinks = siteConfig.header.navLinks || []
-const isDrawerOpen = ref(false)
+export default {
+  components: {
+    ThemeToggle,
+  },
+  setup() {
+    const navLinks = siteConfig.header.navLinks || []
+    const isDrawerOpen = ref(false)
+    const currentPath = ref('/')
 
-const socialLinks = computed(() => {
-  return siteConfig.socialLinks.filter((link: Record<string, any>) => {
-    if (link.header && typeof link.header === 'boolean') {
-      return link
-    }
-    else if (link.header && typeof link.header === 'string') {
-      link.icon = link.header.includes('i-') ? link.header : link.icon
-      return link
-    }
-    else {
-      return false
-    }
-  })
-})
+    const socialLinks = computed(() => {
+      return siteConfig.socialLinks
+        .filter(link => link.header)
+        .map(link => ({
+          ...link,
+          icon: typeof link.header === 'string'
+            ? (link.header.includes('i-') ? link.header : link.icon)
+            : link.icon,
+        }))
+    })
 
-const { y: scroll } = useWindowScroll()
+    const { y: scroll } = useWindowScroll()
 
-function toggleNavDrawer() {
-  isDrawerOpen.value = !isDrawerOpen.value
-  // 锁定/解锁页面滚动
-  document.body.style.overflow = isDrawerOpen.value ? 'hidden' : ''
+    const openDrawer = () => {
+      isDrawerOpen.value = true
+      document.documentElement.classList.add('lock-scroll')
+    }
+
+    const closeDrawer = () => {
+      isDrawerOpen.value = false
+      document.documentElement.classList.remove('lock-scroll')
+    }
+
+    onMounted(() => {
+      currentPath.value = window.location.pathname
+    })
+
+    onUnmounted(() => {
+      document.documentElement.classList.remove('lock-scroll')
+    })
+
+    return {
+      navLinks,
+      socialLinks,
+      isDrawerOpen,
+      currentPath,
+      scroll,
+      openDrawer,
+      closeDrawer,
+      getLinkTarget,
+    }
+  },
 }
 </script>
 
 <template>
   <header
     id="header"
-    :class="{ 'header-bg-blur': scroll > 20 }"
-    class="!fixed bg-transparent z-50 w-screen h-20 px-6 flex justify-between items-center relative transition-all duration-300"
+    class="fixed top-0 z-50 w-full h-20 px-6 flex justify-between items-center transition-all duration-300"
+    :class="{
+      'bg-transparent': scroll <= 20,
+      'backdrop-blur-md bg-white/80 dark:bg-gray-900/80': scroll > 20,
+    }"
   >
-    <!-- 导航左侧 -->
+    <!-- 左侧Logo和导航 -->
     <div class="flex items-center h-full">
-      <a href="/" mr-6 aria-label="Header Logo Image">
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 945 945"
-          class="logo-icon"
-          aria-hidden="true"
-        >
+      <a href="/" class="mr-6" aria-label="网站Logo">
+        <svg width="32" height="32" viewBox="0 0 945 945" class="logo-icon">
           <path d="M131 133.43 131 590.43 361 820.43 361 363.43 131 133.43z" />
           <path d="M818 363.43 361 363.43 131 133.43 588 133.43 818 363.43z" />
           <path d="M361 591.93 588.75 820.43 818 820.43 590.25 591.93 361 591.93z" />
@@ -56,12 +80,12 @@ function toggleNavDrawer() {
       </a>
 
       <!-- 桌面导航 -->
-      <nav class="sm:flex hidden flex-wrap gap-x-6 position-initial flex-row">
+      <nav class="hidden sm:flex gap-x-6">
         <a
-          v-for="link in navLinks" :key="link.text"
-          :aria-label="`${link.text}`"
-          :target="getLinkTarget(link.href)"
-          nav-link :href="link.href"
+          v-for="link in navLinks"
+          :key="link.text"
+          :href="link.href"
+          class="nav-link"
         >
           {{ link.text }}
         </a>
@@ -69,93 +93,76 @@ function toggleNavDrawer() {
 
       <!-- 移动端菜单按钮 -->
       <button
-        sm:hidden h-full flex items-center
-        aria-label="Toggle navigation menu"
-        class="focus:outline-none"
-        @click="toggleNavDrawer"
+        class="sm:hidden text-2xl h-full flex items-center px-2"
+        @click="openDrawer"
       >
-        <menu i-ri-menu-2-fill class="text-2xl" />
+        <i class="i-ri-menu-2-fill" />
       </button>
     </div>
 
-    <!-- 导航右侧 -->
-    <div class="flex gap-x-6">
+    <!-- 右侧图标区 -->
+    <div class="flex items-center gap-x-6">
       <a
-        v-for="link in socialLinks" :key="link.text"
-        :aria-label="`${link.text}`"
+        v-for="link in socialLinks"
+        :key="link.text"
         :class="link.icon"
-        nav-link
-        :target="getLinkTarget(link.href)"
-        :href="link.href"
+        class="text-lg hover:opacity-80"
       />
-      <a nav-link target="_blank" href="/rss.xml" i-ri-rss-line aria-label="RSS" />
-      <ThemeToggle />
+      <a href="/rss.xml" class="i-ri-rss-line text-lg hover:opacity-80" />
+      <ThemeToggle class="text-lg hover:opacity-80" />
     </div>
   </header>
 
-  <!-- 移动端菜单遮罩 -->
-  <transition name="fade">
-    <div
-      v-if="isDrawerOpen"
-      class="nav-drawer-mask fixed inset-0 z-60 bg-black/50 backdrop-blur-sm"
-      @click="toggleNavDrawer"
-    />
-  </transition>
+  <!-- 移动端遮罩层 - 无动画 -->
+  <div
+    v-if="isDrawerOpen"
+    class="fixed inset-0 z-60 bg-black/50 backdrop-blur-sm"
+    @click="closeDrawer"
+  />
 
-  <!-- 移动端抽屉菜单 -->
+  <!-- 移动端抽屉菜单 - 仅保留唤起动画 -->
   <transition name="slide">
     <aside
       v-if="isDrawerOpen"
-      class="nav-drawer sm:hidden fixed h-[calc(100vh-env(safe-area-inset-bottom))] z-70 left-0 top-0 w-72 bg-main shadow-xl pb-[env(safe-area-inset-bottom)]"
+      class="sm:hidden fixed z-70 top-0 left-0 w-72 h-full bg-white dark:bg-gray-900 shadow-xl overflow-y-auto"
     >
-      <div class="p-6 flex flex-col h-full">
+      <div class="p-6 h-full flex flex-col">
         <div class="flex justify-between items-center mb-8">
-          <a href="/" aria-label="Header Logo Image">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 945 945"
-              class="logo-icon"
-              aria-hidden="true"
-            >
+          <a href="/" aria-label="网站Logo">
+            <svg width="32" height="32" viewBox="0 0 945 945" class="logo-icon">
               <path d="M131 133.43 131 590.43 361 820.43 361 363.43 131 133.43z" />
               <path d="M818 363.43 361 363.43 131 133.43 588 133.43 818 363.43z" />
               <path d="M361 591.93 588.75 820.43 818 820.43 590.25 591.93 361 591.93z" />
               <path d="M818 363.43 590.25 591.93 361 591.93 588.75 363.43 818 363.43z" />
             </svg>
           </a>
-          <button
-            aria-label="Close navigation menu"
-            class="text-2xl focus:outline-none"
-            @click="toggleNavDrawer"
-          >
-            <i i-ri-close-line />
+          <button class="text-2xl p-1" @click="closeDrawer">
+            <i class="i-ri-close-line" />
           </button>
         </div>
 
-        <nav class="flex-1 flex flex-col gap-6">
+        <nav class="flex-1 flex flex-col gap-4">
           <a
-            v-for="link in navLinks" :key="link.text"
-            :aria-label="`${link.text}`"
-            :target="getLinkTarget(link.href)"
-            class="text-xl font-medium px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+            v-for="link in navLinks"
+            :key="link.text"
             :href="link.href"
-            @click="toggleNavDrawer"
+            class="text-xl px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+            @click="closeDrawer"
           >
             {{ link.text }}
           </a>
         </nav>
 
-        <div class="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700 pb-4">
-          <div class="flex justify-center gap-6">
+        <div class="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700">
+          <div class="flex justify-center gap-6 py-2">
             <a
-              v-for="link in socialLinks" :key="link.text"
-              :aria-label="`${link.text}`"
+              v-for="link in socialLinks"
+              :key="link.text"
               :class="link.icon"
-              class="text-2xl hover:opacity-80 transition-opacity"
-              :target="getLinkTarget(link.href)"
-              :href="link.href"
+              class="text-2xl hover:opacity-80"
             />
+            <a href="/rss.xml" class="i-ri-rss-line text-2xl hover:opacity-80" />
+            <ThemeToggle class="text-2xl hover:opacity-80" />
           </div>
         </div>
       </div>
@@ -164,56 +171,23 @@ function toggleNavDrawer() {
 </template>
 
 <style scoped>
-/* 优化后的样式 */
-.header-hide {
-  transform: translateY(-100%);
-  transition: transform 0.4s ease;
+/* 滚动锁定 */
+.lock-scroll {
+  overflow: hidden;
 }
 
-header {
-  background-color: transparent;
-  transition: background-color 0.3s ease;
+/* 仅保留唤起动画 */
+.slide-enter-active {
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
-
-/* 滚动后的模糊效果 */
-.header-bg-blur {
-  background-color: rgba(255, 255, 255, 0.8); /* 浅色模式半透明 */
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.dark .header-bg-blur {
-  background-color: rgba(30, 30, 32, 0.8); /* 深色模式半透明 */
-}
-
-/* 遮罩动画 */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-/* 抽屉滑动动画 */
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-.slide-enter-from,
-.slide-leave-to {
+.slide-enter-from {
   transform: translateX(-100%);
 }
 
-/* 优化后的导航链接样式 */
+/* 导航链接下划线动画 */
 .nav-link {
   position: relative;
 }
-
 .nav-link::after {
   content: '';
   position: absolute;
@@ -221,28 +195,15 @@ header {
   left: 0;
   width: 0;
   height: 2px;
-  background-color: currentColor;
-  transition: width 0.3s ease;
+  background: currentColor;
+  transition: width 0.25s ease;
 }
-
 .nav-link:hover::after {
   width: 100%;
 }
 
-/* 暗黑模式优化 */
-.dark .nav-drawer {
-  --at-apply: shadow-xl shadow-gray-900/30;
-}
-
-@media (prefers-color-scheme: dark) {
-  .header-bg-blur {
-    --at-apply: backdrop-blur-sm bg-dark-800/80;
-  }
-}
-
-/* 优化logo样式 */
+/* Logo颜色继承 */
 .logo-icon path {
   fill: currentColor;
-  transition: fill 0.3s ease;
 }
 </style>
