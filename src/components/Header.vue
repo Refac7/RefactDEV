@@ -13,6 +13,7 @@ export default {
     const navLinks = siteConfig.header.navLinks || []
     const isDrawerOpen = ref(false)
     const currentPath = ref('/')
+    const isPageChanging = ref(false)
 
     const socialLinks = computed(() => {
       return siteConfig.socialLinks
@@ -32,7 +33,9 @@ export default {
       document.documentElement.classList.add('lock-scroll')
     }
 
-    const closeDrawer = () => {
+    // 修改：添加参数控制是否跳过动画
+    const closeDrawer = (skipAnimation = false) => {
+      isPageChanging.value = skipAnimation
       isDrawerOpen.value = false
       document.documentElement.classList.remove('lock-scroll')
     }
@@ -54,6 +57,7 @@ export default {
       openDrawer,
       closeDrawer,
       getLinkTarget,
+      isPageChanging,
     }
   },
 }
@@ -64,8 +68,8 @@ export default {
     id="header"
     class="fixed top-0 z-50 w-full h-20 px-6 flex justify-between items-center transition-all duration-300"
     :class="{
-      'bg-transparent': scroll <= 20,
-      'backdrop-blur-md bg-white/80 dark:bg-gray-900/80': scroll > 20,
+      'bg-white/30 dark:bg-gray-900/30': scroll <= 20,
+      'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-sm': scroll > 20,
     }"
   >
     <!-- 左侧Logo和导航 -->
@@ -105,26 +109,35 @@ export default {
       <a
         v-for="link in socialLinks"
         :key="link.text"
+        :href="link.href"
+        :target="getLinkTarget(link.href)"
         :class="link.icon"
         class="text-lg hover:opacity-80"
+        :aria-label="link.text"
       />
-      <a href="/rss.xml" class="i-ri-rss-line text-lg hover:opacity-80" />
+      <a href="/rss.xml" class="i-ri-rss-line text-lg hover:opacity-80" target="_blank" />
       <ThemeToggle class="text-lg hover:opacity-80" />
     </div>
   </header>
 
-  <!-- 移动端遮罩层 - 无动画 -->
+  <!-- 移动端遮罩层 -->
   <div
-    v-if="isDrawerOpen"
-    class="fixed inset-0 z-60 bg-black/50 backdrop-blur-sm"
-    @click="closeDrawer"
+    v-show="isDrawerOpen"
+    class="fixed inset-0 z-60 bg-black/40 dark:bg-black/60 backdrop-blur-md"
+    @click="closeDrawer()"
   />
 
-  <!-- 移动端抽屉菜单 - 仅保留唤起动画 -->
-  <transition name="slide">
+  <!-- 移动端抽屉菜单 -->
+  <transition
+    :css="!isPageChanging"
+    enter-active-class="transition-transform duration-300 ease-out"
+    enter-from-class="transform -translate-x-full"
+    leave-active-class="transition-transform duration-300 ease-in"
+    leave-to-class="transform -translate-x-full"
+  >
     <aside
-      v-if="isDrawerOpen"
-      class="sm:hidden fixed z-70 top-0 left-0 w-72 h-full bg-white dark:bg-gray-900 shadow-xl overflow-y-auto"
+      v-show="isDrawerOpen"
+      class="sm:hidden fixed z-70 top-0 left-0 w-72 h-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-xl overflow-y-auto"
     >
       <div class="p-6 h-full flex flex-col">
         <div class="flex justify-between items-center mb-8">
@@ -136,7 +149,7 @@ export default {
               <path d="M818 363.43 590.25 591.93 361 591.93 588.75 363.43 818 363.43z" />
             </svg>
           </a>
-          <button class="text-2xl p-1" @click="closeDrawer">
+          <button class="text-2xl p-1" @click="closeDrawer()">
             <i class="i-ri-close-line" />
           </button>
         </div>
@@ -146,22 +159,30 @@ export default {
             v-for="link in navLinks"
             :key="link.text"
             :href="link.href"
-            class="text-xl px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-            @click="closeDrawer"
+            class="text-xl px-4 py-3 rounded-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
+            @click="closeDrawer(true)"
           >
             {{ link.text }}
           </a>
         </nav>
 
-        <div class="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div class="mt-auto pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
           <div class="flex justify-center gap-6 py-2">
             <a
               v-for="link in socialLinks"
               :key="link.text"
+              :href="link.href"
+              :target="getLinkTarget(link.href)"
               :class="link.icon"
               class="text-2xl hover:opacity-80"
+              @click="closeDrawer(true)"
             />
-            <a href="/rss.xml" class="i-ri-rss-line text-2xl hover:opacity-80" />
+            <a
+              href="/rss.xml"
+              class="i-ri-rss-line text-2xl hover:opacity-80"
+              target="_blank"
+              @click="closeDrawer(true)"
+            />
             <ThemeToggle class="text-2xl hover:opacity-80" />
           </div>
         </div>
@@ -174,14 +195,6 @@ export default {
 /* 滚动锁定 */
 .lock-scroll {
   overflow: hidden;
-}
-
-/* 仅保留唤起动画 */
-.slide-enter-active {
-  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-.slide-enter-from {
-  transform: translateX(-100%);
 }
 
 /* 导航链接下划线动画 */
