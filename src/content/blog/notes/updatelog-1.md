@@ -18,7 +18,7 @@ tag: 日志
 - **PC端交互细节升级**
   页面切换按钮新增以下交互效果：
   *Enhanced PC interaction with the following updates:*
-  - 鼠标悬停时显示动态下划线动画（CSS `transition: underline 0.3s ease-out`）
+  - 鼠标悬停时显示动态下划线动画
     *Hover-triggered underline animation with smooth transition*
   - 活动状态按钮增加微投影效果
     *Added subtle shadow for active-state indicators*
@@ -38,7 +38,7 @@ tag: 日志
   - 修复 Safari 浏览器下收起动画的闪烁问题（原因为 `will-change` 属性冲突）
     *Fixed animation flickering in Safari
     (caused by `will-change` property conflict)*
-  - 优化过渡曲线（`cubic-bezier(0.33, 1, 0.68, 1)`）
+  - 优化过渡曲线
     *Refined transition timing function*
   - 增加 1px 描边分隔线提升可读性
     *Added 1px border for better visual separation*
