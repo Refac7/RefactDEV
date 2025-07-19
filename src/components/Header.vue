@@ -68,8 +68,8 @@ export default {
     id="header"
     class="fixed top-0 z-50 w-full h-20 px-6 flex justify-between items-center transition-all duration-300"
     :class="{
-      'bg-white/30 dark:bg-gray-900/30': scroll <= 20,
-      'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-sm': scroll > 20,
+      'bg-white/0 dark:bg-gray-900/0': scroll <= 20,
+      'bg-white/40 dark:bg-gray-900/40 backdrop-blur-lg shadow-sm': scroll > 20,
     }"
   >
     <!-- 左侧Logo和导航 -->
@@ -123,7 +123,7 @@ export default {
   <!-- 移动端遮罩层 -->
   <div
     v-show="isDrawerOpen"
-    class="fixed inset-0 z-60 bg-black/40 dark:bg-black/60 backdrop-blur-md"
+    class="fixed inset-0 z-60"
     @click="closeDrawer()"
   />
 
@@ -132,12 +132,12 @@ export default {
     :css="!isPageChanging"
     enter-active-class="transition-transform duration-300 ease-out"
     enter-from-class="transform -translate-x-full"
-    leave-active-class="transition-transform duration-300 ease-in"
+    leave-active-class="transition-transform duration-200 ease-in"
     leave-to-class="transform -translate-x-full"
   >
     <aside
       v-show="isDrawerOpen"
-      class="sm:hidden fixed z-70 top-0 left-0 w-72 h-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-xl overflow-y-auto"
+      class="sm:hidden fixed z-70 top-0 left-0 w-72 h-full bg-white/40 dark:bg-gray-900/40 backdrop-blur-xl shadow-xl overflow-y-auto"
     >
       <div class="p-6 h-full flex flex-col">
         <div class="flex justify-between items-center mb-8">

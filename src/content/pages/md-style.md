@@ -1,45 +1,45 @@
 ---
-title: Markdown Style
+title: Markdown 样式指南
 ---
 
-The page style in your `*.md` file.
+您的 `*.md` 文件中的页面样式。
 
-## h2
+## 二级标题 (h2)
 
-The main content of your article
+文章的主要内容
 
-### h3
+### 三级标题 (h3)
 
-The main content of your article
+文章的主要内容
 
-#### h4
+#### 四级标题 (h4)
 
-The main content of your article
+文章的主要内容
 
-##### h5
+##### 五级标题 (h5)
 
-The main content of your article
+文章的主要内容
 
-###### h6
+###### 六级标题 (h6)
 
-The main content of your article
+文章的主要内容
 
-Table Style:
+表格样式:
 
-| Field        | Description                                          |
-| :----------- | :--------------------------------------------------- |
-| NAME         | Displayed in header and footer. Used in SEO and RSS. |
-| EMAIL        | Displayed in contact section.                        |
-| NUM_POSTS    | Limit num of posts on home page.                     |
-| NUM_WORKS    | Limit num of works on home page.                     |
-| NUM_PROJECTS | Limit num of projects on home page.                  |
+| 字段          | 描述                                                  |
+| :------------ | :--------------------------------------------------- |
+| 姓名 (NAME)   | 显示在页眉和页脚。用于SEO和RSS。                     |
+| 邮箱 (EMAIL)  | 显示在联系信息部分。                                  |
+| 文章数量 (NUM_POSTS)    | 限制首页显示的文章数量。                              |
+| 作品数量 (NUM_WORKS)    | 限制首页显示的作品数量。                              |
+| 项目数量 (NUM_PROJECTS) | 限制首页显示的项目数量。                              |
 
-Code Snippet:
+代码片段:
 
 ```ts
 export const data = {
-  name: 'Name',
-  value: 'Value'
+  name: '名称',
+  value: '值'
 }
 
 export function getName() {

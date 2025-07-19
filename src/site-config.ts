@@ -65,15 +65,15 @@ export const siteConfig = {
   footer: {
     navLinks: [
       {
-        text: 'Posts Props',
+        text: '文章属性',
         href: '/posts-props',
       },
       {
-        text: 'Markdown Style',
+        text: 'Markdown样式',
         href: '/md-style',
       },
       {
-        text: 'GitHub Repository',
+        text: 'GitHub仓库',
         href: 'https://github.com/msrefs/RefactX',
       },
     ],

@@ -49,6 +49,13 @@ export default defineConfig({
   safelist: [
     'i-ri-file-list-2-line',
     'i-carbon-campsite',
+    'i-carbon-box',
+    'i-carbon-LogoXing',
+    'i-carbon-FolderOpen',
+    'i-carbon-beta',
+    'i-carbon-Checkmark',
+    'i-carbon-Plug',
+    'i-carbon-Terminal',
     'i-simple-icons-github',
     'i-simple-icons-x',
     'i-simple-icons-linkedin',

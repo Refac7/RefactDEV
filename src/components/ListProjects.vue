@@ -14,7 +14,7 @@ defineProps<{
   <ul grid="~ cols-1 sm:cols-2 gap-4">
     <template v-if="!list || list.length === 0">
       <div py10 opacity-50 text-lg>
-        nothing here yet.
+        这里还没有任何内容。
       </div>
     </template>
     <li v-for="project in list" :key="project.text" container-link w-full flex items-center rd-2>

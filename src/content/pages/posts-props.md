@@ -1,26 +1,26 @@
 ---
-title: Posts Props
+title: 文章属性
 ---
 
-Props in blog:
+博客文章属性:
 
-| Field       | Req  | Description                                |
-| :---------- | :--- | :----------------------------------------- |
-| title       | Yes  | Title of the article.                      |
-| description | Yes  | Description of the article.                |
-| image       | No   | Hero image of the article.                 |
-| date        | No   | The publication date of the article.       |
-| duration    | No   | The estimated viewing time of the article. |
-| lang        | No   | Article language, default en-US.           |
-| redirect    | No   | The redirected address of the article.     |
-| draft       | No   | The current article is in draft status.    |
-| tag         | No   | Custom tag text for the article.           |
-| video       | No   | The article contains a video.              |
+| 字段          | 必填  | 描述                                      |
+| :------------ | :--- | :--------------------------------------- |
+| 标题 (title)  | 是   | 文章的标题。                              |
+| 描述 (description) | 是   | 文章的简介。                            |
+| 图片 (image)  | 否   | 文章的封面图片。                          |
+| 日期 (date)   | 否   | 文章的发布日期。                          |
+| 阅读时长 (duration) | 否   | 文章的预计阅读时间。                    |
+| 语言 (lang)   | 否   | 文章的语言，默认为 en-US。               |
+| 重定向地址 (redirect) | 否   | 文章的重定向地址。                      |
+| 草稿状态 (draft) | 否   | 文章是否为草稿状态。                    |
+| 标签 (tag)    | 否   | 文章的自定义标签文本。                    |
+| 视频 (video)  | 否   | 文章是否包含视频。                        |
 
-Props in pages:
+页面属性:
 
-| Field       | Req  | Description                                          |
-| :---------- | :--- | :--------------------------------------------------- |
-| title       | Yes  | Title of the article.                      |
-| description | Yes  | Description of the article.                |
-| image       | No   | Hero image of the article.                 |
+| 字段          | 必填  | 描述                                      |
+| :------------ | :--- | :--------------------------------------- |
+| 标题 (title)  | 是   | 文章的标题。                              |
+| 描述 (description) | 是   | 文章的简介。                            |
+| 图片 (image)  | 否   | 文章的封面图片。                          |
