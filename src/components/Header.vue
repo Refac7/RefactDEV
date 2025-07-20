@@ -66,15 +66,15 @@ export default {
 <template>
   <header
     id="header"
+    view-transition-name="site-header"
     class="fixed top-0 z-50 w-full h-20 px-6 flex justify-between items-center transition-all duration-300"
     :class="{
-      'bg-white/0 dark:bg-gray-900/0': scroll <= 20,
-      'bg-white/40 dark:bg-gray-900/40 backdrop-blur-lg shadow-sm': scroll > 20,
+      'backdrop-blur-lg': scroll > 20,
     }"
   >
     <!-- 左侧Logo和导航 -->
     <div class="flex items-center h-full">
-      <a href="/" class="mr-6" aria-label="网站Logo">
+      <a href="/" class="mr-6" aria-label="Logo">
         <svg width="32" height="32" viewBox="0 0 945 945" class="logo-icon">
           <path d="M131 133.43 131 590.43 361 820.43 361 363.43 131 133.43z" />
           <path d="M818 363.43 361 363.43 131 133.43 588 133.43 818 363.43z" />
@@ -123,6 +123,7 @@ export default {
   <!-- 移动端遮罩层 -->
   <div
     v-show="isDrawerOpen"
+    view-transition-name="site-drawer"
     class="fixed inset-0 z-60"
     @click="closeDrawer()"
   />
@@ -141,7 +142,7 @@ export default {
     >
       <div class="p-6 h-full flex flex-col">
         <div class="flex justify-between items-center mb-8">
-          <a href="/" aria-label="网站Logo">
+          <a href="/" aria-label="Logo">
             <svg width="32" height="32" viewBox="0 0 945 945" class="logo-icon">
               <path d="M131 133.43 131 590.43 361 820.43 361 363.43 131 133.43z" />
               <path d="M818 363.43 361 363.43 131 133.43 588 133.43 818 363.43z" />
@@ -183,7 +184,6 @@ export default {
               target="_blank"
               @click="closeDrawer(true)"
             />
-            <ThemeToggle class="text-2xl hover:opacity-80" />
           </div>
         </div>
       </div>

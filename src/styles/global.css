@@ -62,3 +62,9 @@ html.dark::view-transition-old(root) {
 html.dark::view-transition-new(root) {
   z-index: 1;
 }
+
+/* 确保header和抽屉在过渡中保持正确层级 */
+::view-transition-group(site-header),
+::view-transition-group(site-drawer) {
+  z-index: 999;
+}
