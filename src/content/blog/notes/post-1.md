@@ -1,84 +1,63 @@
 ---
-title: Hello World!
-description: This is a sample blog post demonstrating proper Markdown formatting with front matter metadata. It includes various elements like headings, lists, code blocks, and links.
+title: 这里是 RefactX Project
+description: 在这里写一些基本内容，如果你真的好奇的话，可以看一下
 duration: 5min
-date: 2025-07-17
+date: 2025-07-21
 ---
 
-## Section 1: Basic Markdown Elements
+## 这是什么？
 
-Here are some **basic** Markdown *formatting* examples:
+如果你是在 萌备大厅 或是 从某处随机跳转过来的，这可能是是你们的第一问题，所以放在这里优先回答。
+> 这里是我比较隐蔽的一个写作网站，同时又是我学习前端开发的实践对象。
+因为我身边的人都不知道这个东西，所以这里可能会涉及一些比较敏感的话题，内容是偏主观的，若你不能接受，请通过以下命令拉黑此网站。
 
-- **Bold text**
-- *Italic text*
-- ~~Strikethrough~~
-- `inline code`
+```terminal
+Windows（管理员权限运行）：
+echo 127.0.0.1 refact.cc >> C:\Windows\System32\drivers\etc\hosts
 
-### Lists
-
-**Ordered list:**
-1. First item
-2. Second item
-3. Third item
-
-**Unordered list:**
-- Apples
-- Oranges
-- Bananas
-
-## Section 2: Code Examples
-
-Here's a simple JavaScript function:
-
-```javascript
-function greet(name) {
-  return `Hello, ${name}!`
-}
-
-console.log(greet('World'))
+macOS/Linux：
+sudo sh -c 'echo "127.0.0.1 refact.cc" >> /etc/hosts'
 ```
 
-And some Python:
+### 此话题的Q&A
 
-```python
-def factorial(n):
-    if n == 0:
-        return 1
-    return n * factorial(n-1)
+- 我希望部署相同的网站
+> 当然，此项目基于 MIT许可证 开源，你可从右上角或footer中的GitHub图标跳转到源码仓库，然后复刻它即可。
+- 这个网站简陋吗？
+> 是也不是，现在的UI不符合我的设计稿，因为技术限制，但是此网站以文本为主，毕竟，人的注意力是有限的，当界面中的元素过于复杂时，用户体验和阅读效率就会大打折扣
+- 没有评论功能？
+> 是的，计划内没有这个想法。实际上，我不擅长与他人交谈，也总是曲解他人言语中的意图，很抱歉会害怕他人的评价，如果我以后改正了这个习惯，会加上的
 
-print(factorial(5))
-```
+## 我是谁
 
-## Section 3: Advanced Elements
+我是 Refact, 独立开发者、学生，为此分支项目提供汉化和维护
 
-### Tables
+如果为了逃避现实，我就会到这里改改代码，写写文章，这使我能冷静下来
 
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
+而以我现在的能力，对其能做的更改也有限，不要对我抱有太多期望
 
-### Links and Images
+现实中的我，我是很厌恶的，所以一次次逃避现实，真是个懦夫，哈哈哈哈
 
-[Markdown Guide](https://www.markdownguide.org)
+## 写作内容
 
-![Sample Image](https://via.placeholder.com/150 "Placeholder Image")
+如你所见，这里分了两个板块：笔记和杂谈
 
-## Section 4: Footnotes and References
+而文章Slug下除了这两个板块外，有一些我无法为其分类的文章，仅在无筛选器的情况下可见
 
-Here's a footnote reference[^1].
+### 笔记
 
-[^1]: This is the footnote content.
+包含技术文档，更新日志等，是偏正式的，根据 CC BY-NC-SA 4.0协议 ，您在引用这些文章时，必须表明其出处。
 
-## Conclusion
+你们也大概不会对我这些浅显而漏洞百出的文档感兴趣吧
 
-This demonstrates a properly formatted Markdown document with:
+### 杂谈
 
-- YAML front matter for metadata
-- Proper heading hierarchy
-- Code blocks with syntax highlighting
-- Lists and tables
-- Links and images
-- Footnotes
+这种文章一般是我有感而发而即兴写的，内容可能未经琢磨，您可使用筛选器去除这些文章显示
 
-Happy writing!
+如果要转载此类文章，可不标明来源，大概也不会有人转载电子垃圾吧
+
+### 未定义的
+
+除了以上两种文章以外，从其他地方转载的文章包括在这里
+
+许可证使用原作者，会在文档首尾标明
