@@ -11,7 +11,7 @@ export const siteConfig = {
   socialLinks: [
     {
       text: 'GitHub',
-      href: 'https://github.com/msrefs/RefactX',
+      href: 'https://github.com/Refac7/RefactX',
       icon: 'i-simple-icons-github',
       header: 'i-ri-github-line',
     },
@@ -74,7 +74,7 @@ export const siteConfig = {
       },
       {
         text: 'GitHub仓库',
-        href: 'https://github.com/msrefs/RefactX',
+        href: 'https://github.com/Refac7/RefactX',
       },
     ],
   },
